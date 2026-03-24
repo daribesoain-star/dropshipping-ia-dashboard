@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Negocio Dropshipping IA</title>
+<style>
+:root{--p:#0f172a;--s:#1e293b;--a:#3b82f6;--h:#ef4444;--g:#22c55e;--o:#f59e0b;--bg:#0f172a;--card:#1e293b;--t:#f1f5f9;--m:#64748b;--b:#334155;--r:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--p)}::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+
+/* SIDEBAR */
+.sb{position:fixed;left:0;top:0;width:240px;height:100vh;background:var(--s);border-right:1px solid var(--b);z-index:100;display:flex;flex-direction:column;transition:transform .3s}
+.sb-logo{padding:20px;border-bottom:1px solid var(--b);text-align:center}
+.sb-logo h2{font-size:1.1rem;background:linear-gradient(135deg,var(--a),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.sb-logo small{color:var(--m);font-size:.7rem}
+.sb nav{flex:1;padding:12px 0;overflow-y:auto}
+.sb nav a{display:flex;align-items:center;gap:10px;padding:11px 20px;color:var(--m);text-decoration:none;font-size:.85rem;border-left:3px solid transparent;transition:all .15s;cursor:pointer}
+.sb nav a:hover{color:var(--t);background:rgba(255,255,255,.03)}
+.sb nav a.act{color:var(--a);border-left-color:var(--a);background:rgba(59,130,246,.08)}
+.sb nav a .icon{font-size:1.1rem;width:22px;text-align:center}
+.sb-foot{padding:16px 20px;border-top:1px solid var(--b);font-size:.7rem;color:var(--m)}
+.menu-btn{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--a);color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:1.2rem;cursor:pointer}
+
+/* MAIN */
+.mn{margin-left:240px;padding:24px;min-height:100vh}
+.mn-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:8px}
+.mn-head h1{font-size:1.5rem;font-weight:700}
+.mn-head .dt{color:var(--m);font-size:.82rem}
+
+/* CARDS */
+.cd{background:var(--card);border-radius:var(--r);padding:20px;border:1px solid var(--b);margin-bottom:20px}
+.cd h3{font-size:1rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cd h3 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* STATS */
+.st{background:var(--card);border-radius:var(--r);padding:18px;border:1px solid var(--b);position:relative;overflow:hidden}
+.st::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.st.sg::before{background:var(--g)}.st.sb2::before{background:var(--a)}.st.so::before{background:var(--o)}.st.sr::before{background:var(--h)}
+.st .sl{font-size:.75rem;color:var(--m);margin-bottom:2px}.st .sv{font-size:1.7rem;font-weight:800}.st .sc{font-size:.72rem;margin-top:2px}
+.sc.up{color:var(--g)}.sc.dn{color:var(--h)}
+
+/* SECTIONS */
+.sec{display:none}.sec.act{display:block}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:.84rem}
+th{text-align:left;padding:10px 12px;color:var(--m);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--b)}
+td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.03)}
+tr:hover{background:rgba(255,255,255,.015)}
+
+/* BADGES */
+.bg{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.7rem;font-weight:600}
+.bg-g{background:rgba(34,197,94,.12);color:var(--g)}.bg-o{background:rgba(245,158,11,.12);color:var(--o)}
+.bg-r{background:rgba(239,68,68,.12);color:var(--h)}.bg-b{background:rgba(59,130,246,.12);color:var(--a)}
+.bg-p{background:rgba(168,85,247,.12);color:#a855f7}
+
+/* FORM */
+.fl{display:flex;flex-direction:column;gap:4px}
+.fl label{font-size:.78rem;font-weight:600;color:var(--m)}
+.fl input,.fl select{padding:10px 12px;background:var(--p);border:1.5px solid var(--b);border-radius:8px;color:var(--t);font-size:.9rem;transition:border .2s}
+.fl input:focus,.fl select:focus{outline:none;border-color:var(--a)}
+.fl .hn{font-size:.68rem;color:#475569}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-p{background:var(--a);color:#fff}.btn-p:hover{background:#2563eb;transform:translateY(-1px)}
+.btn-g{background:var(--g);color:#fff}.btn-g:hover{background:#16a34a}
+.btn-o{background:rgba(255,255,255,.05);color:var(--t);border:1px solid var(--b)}.btn-o:hover{border-color:var(--a)}
+.btn-f{width:100%}
+.btn-sm{padding:6px 14px;font-size:.78rem;border-radius:6px}
+
+/* PRESET PILLS */
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.pill{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);border-radius:20px;padding:5px 14px;font-size:.75rem;cursor:pointer;color:var(--a);font-weight:500;transition:all .15s}
+.pill:hover{background:var(--a);color:#fff}
+
+/* RESULT CARDS */
+.rg{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.rc{background:var(--p);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--b)}
+.rc .rv{font-size:1.5rem;font-weight:800;margin:4px 0}.rc .rl{font-size:.72rem;color:var(--m)}
+.rc.rg2 .rv{color:var(--g)}.rc.ro2 .rv{color:var(--o)}.rc.rr2 .rv{color:var(--h)}.rc.rb2 .rv{color:var(--a)}
+
+/* VERDICT */
+.vd{padding:14px 18px;border-radius:10px;margin-top:14px;font-weight:600;text-align:center;font-size:.95rem}
+.vd-g{background:rgba(34,197,94,.1);color:var(--g);border:1px solid rgba(34,197,94,.25)}
+.vd-o{background:rgba(245,158,11,.1);color:var(--o);border:1px solid rgba(245,158,11,.25)}
+.vd-r{background:rgba(239,68,68,.1);color:var(--h);border:1px solid rgba(239,68,68,.25)}
+
+/* BREAKDOWN */
+.bd table td:last-child,.bd table th:last-child{text-align:right}
+.bd .tot{background:rgba(59,130,246,.05);font-weight:700}
+.bd .profit{background:rgba(34,197,94,.08)}
+
+/* TIMELINE */
+.tl{list-style:none;padding:0}
+.tl li{padding:14px 0 14px 28px;border-left:2px solid var(--b);position:relative}
+.tl li::before{content:'';position:absolute;left:-6px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--b)}
+.tl li.dn::before{background:var(--g)}.tl li.cur::before{background:var(--a);box-shadow:0 0 10px var(--a)}
+.tl li.pnd::before{background:var(--b)}
+.tl .tt{font-weight:600;font-size:.9rem}.tl .td{font-size:.78rem;color:var(--m);margin-top:2px}
+
+/* CHECKLIST */
+.cl{list-style:none;padding:0}
+.cl li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.88rem;transition:opacity .2s}
+.cl li input{width:18px;height:18px;accent-color:var(--g);cursor:pointer}
+.cl li.chk{opacity:.45;text-decoration:line-through}
+
+/* TIP */
+.tip{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);border-radius:10px;padding:14px;margin-bottom:14px}
+.tip strong{color:var(--a)}.tip p{font-size:.82rem;margin-top:4px;color:var(--m)}
+.tip-r{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.15)}.tip-r strong{color:var(--h)}
+.tip-g{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.15)}.tip-g strong{color:var(--g)}
+
+/* PROGRESS */
+.pb{background:var(--b);border-radius:8px;height:8px;overflow:hidden;margin-top:6px}
+.pb .pf{height:100%;border-radius:8px;transition:width .5s}
+
+/* PROVIDER */
+.pv{padding:14px;background:rgba(255,255,255,.02);border-radius:8px;margin-bottom:10px;border:1px solid rgba(255,255,255,.04)}
+.pv h4{color:var(--a);margin-bottom:4px;font-size:.9rem}.pv p{font-size:.78rem;color:var(--m)}
+
+/* TABS */
+.tabs{display:flex;gap:0;margin-bottom:16px;border-radius:8px;overflow:hidden;border:1px solid var(--b)}
+.tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-weight:600;font-size:.82rem;background:var(--card);color:var(--m);transition:all .15s;border-right:1px solid var(--b)}
+.tab:last-child{border-right:none}
+.tab.act{background:var(--a);color:#fff}
+.tc{display:none}.tc.act{display:block}
+
+/* AUTH OVERLAY */
+.auth-overlay{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;transition:opacity .5s}
+.auth-overlay.hidden{opacity:0;pointer-events:none}
+.auth-box{background:var(--card);border:1px solid var(--b);border-radius:16px;padding:40px;width:100%;max-width:400px;box-shadow:0 25px 50px rgba(0,0,0,.5)}
+.auth-box h2{text-align:center;margin-bottom:6px;font-size:1.3rem;background:linear-gradient(135deg,var(--a),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auth-box .auth-sub{text-align:center;color:var(--m);font-size:.8rem;margin-bottom:24px}
+.auth-box .fl{margin-bottom:14px}
+.auth-box .fl label{font-size:.82rem;color:var(--m);margin-bottom:4px;display:block}
+.auth-box .fl input{width:100%;padding:10px 14px;background:var(--p);border:1px solid var(--b);border-radius:8px;color:var(--t);font-size:.9rem}
+.auth-box .fl input:focus{border-color:var(--a);outline:none;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.auth-box .auth-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--a),#6366f1);color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;margin-top:8px;transition:transform .15s}
+.auth-box .auth-btn:hover{transform:translateY(-1px)}
+.auth-err{color:var(--h);font-size:.8rem;text-align:center;margin-top:10px;min-height:20px}
+.auth-lock{font-size:3rem;text-align:center;margin-bottom:12px}
+.logout-btn{background:rgba(239,68,68,.1);color:var(--h);border:1px solid rgba(239,68,68,.2);border-radius:6px;padding:6px 12px;font-size:.75rem;cursor:pointer;transition:all .15s}
+.logout-btn:hover{background:rgba(239,68,68,.2)}
+.user-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);border-radius:20px;padding:4px 12px;font-size:.75rem;color:var(--a)}
+.role-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:600}
+.role-admin{background:rgba(168,85,247,.15);color:#a855f7}
+.role-vendedor{background:rgba(34,197,94,.15);color:var(--g)}
+.role-soporte{background:rgba(245,158,11,.15);color:var(--o)}
+.role-cliente{background:rgba(59,130,246,.15);color:var(--a)}
+
+/* USER MGMT */
+.um-card{background:var(--p);border:1px solid var(--b);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.um-card .um-info{flex:1}
+.um-card .um-email{font-size:.85rem;font-weight:600}
+.um-card .um-role{font-size:.75rem;color:var(--m)}
+.um-card .um-actions{display:flex;gap:6px}
+.um-card .um-actions button{padding:4px 10px;border-radius:6px;border:1px solid var(--b);background:var(--card);color:var(--t);font-size:.72rem;cursor:pointer}
+.um-card .um-actions button:hover{border-color:var(--a)}
+.um-card .um-actions .del-btn{color:var(--h);border-color:rgba(239,68,68,.3)}
+.um-card .um-actions .del-btn:hover{background:rgba(239,68,68,.1)}
+
+/* RESPONSIVE */
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+  .sb{transform:translateX(-100%)}.sb.open{transform:translateX(0)}
+  .menu-btn{display:block}.mn{margin-left:0}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .rg{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH LOGIN OVERLAY -->
+<div id="auth-overlay" class="auth-overlay">
+  <div class="auth-box">
+    <div class="auth-lock">&#128274;</div>
+    <h2>DROPSHIPPING IA</h2>
+    <p class="auth-sub">MercadoLibre Chile &bull; Acceso Seguro</p>
+    <div class="fl"><label>Usuario o Email</label><input type="text" id="auth-user" placeholder="tu@email.com" autocomplete="username"></div>
+    <div class="fl"><label>Contrase&ntilde;a</label><input type="password" id="auth-pass" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password"></div>
+    <button class="auth-btn" onclick="doLogin()">Iniciar Sesi&oacute;n</button>
+    <div class="auth-err" id="auth-err"></div>
+    <p style="text-align:center;margin-top:16px;font-size:.72rem;color:var(--m)">Primera vez? Admin: dari / admin123<br>Cambia tu contrase&ntilde;a despu&eacute;s de ingresar</p>
+  </div>
+</div>
+
+<button class="menu-btn" onclick="document.querySelector('.sb').classList.toggle('open')">&#9776;</button>
+
+<div class="sb">
+  <div class="sb-logo">
+    <h2>DROPSHIPPING IA</h2>
+    <small>MercadoLibre Chile &bull; Dari Besoain</small>
+  </div>
+  <nav id="nav">
+    <a class="act" onclick="go('home')"><span class="icon">&#127968;</span> Panel Principal</a>
+    <a onclick="go('calc')"><span class="icon">&#129518;</span> Calculadora</a>
+    <a onclick="go('products')"><span class="icon">&#128293;</span> Productos Trending</a>
+    <a onclick="go('guide')"><span class="icon">&#128218;</span> Gu&iacute;a Paso a Paso</a>
+    <a onclick="go('roadmap')"><span class="icon">&#128640;</span> Hoja de Ruta</a>
+    <a onclick="go('suppliers')"><span class="icon">&#127983;</span> Proveedores China</a>
+    <a onclick="go('costs')"><span class="icon">&#128176;</span> Costos</a>
+    <a onclick="go('simulator')"><span class="icon">&#128200;</span> Simulador</a>
+    <a onclick="go('inventory')"><span class="icon">&#128230;</span> Mi Inventario</a>
+    <a onclick="go('notes')"><span class="icon">&#128221;</span> Notas</a>
+    <a onclick="go('users')" id="nav-users" style="display:none"><span class="icon">&#128101;</span> Usuarios</a>
+    <a onclick="go('profile')"><span class="icon">&#9881;</span> Mi Perfil</a>
+  </nav>
+  <div class="sb-foot" style="display:flex;flex-direction:column;gap:8px">
+    <div id="sb-user-info"></div>
+    <button class="logout-btn" onclick="doLogout()">&#128682; Cerrar Sesi&oacute;n</button>
+    <span style="font-size:.65rem;color:var(--m)">v2.0 &bull; Marzo 2026 &bull; Seguro</span>
+  </div>
+</div>
+
+<div class="mn">
+  <div class="mn-head">
+    <h1 id="page-title">Panel Principal</h1>
+    <div class="dt" id="date-now"></div>
+  </div>
+
+  <!-- ==================== HOME ==================== -->
+  <div id="sec-home" class="sec act">
+    <div class="g4" id="home-stats">
+      <div class="st sg"><div class="sl">Presupuesto</div><div class="sv">$1,500+</div><div class="sc up">USD disponible</div></div>
+      <div class="st sb2"><div class="sl">Productos Identificados</div><div class="sv">15+</div><div class="sc up">Con margen &gt; 35%</div></div>
+      <div class="st so"><div class="sl">Meta Mes 6</div><div class="sv">$1,200</div><div class="sc">USD/mes utilidad</div></div>
+      <div class="st sr"><div class="sl">Fase Actual</div><div class="sv" id="home-phase">0/4</div><div class="sc">Iniciando</div></div>
+    </div>
+
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Progreso del Proyecto</h3>
+        <div id="home-progress"></div>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--g)"></span> Acciones Inmediatas</h3>
+        <ul class="cl" id="home-checklist"></ul>
+      </div>
+    </div>
+
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--o)"></span> Proyecci&oacute;n Financiera (12 Meses)</h3>
+      <table>
+        <tr><th>Per&iacute;odo</th><th>Ventas/Mes</th><th>Ingreso Bruto</th><th>Utilidad Neta</th><th>Acumulado</th><th>Estado</th></tr>
+        <tr><td>Mes 1-2</td><td>5-15</td><td>$50-150 USD</td><td>-$400</td><td>-$1,900</td><td><span class="bg bg-r">Inversi&oacute;n</span></td></tr>
+        <tr><td>Mes 3-4</td><td>30-60</td><td>$300-600</td><td>$200-400</td><td>-$1,200</td><td><span class="bg bg-o">Creciendo</span></td></tr>
+        <tr><td>Mes 5-6</td><td>80-150</td><td>$800-1,500</td><td>$600-1,000</td><td>~$0</td><td><span class="bg bg-g">Break-even</span></td></tr>
+        <tr><td>Mes 7-9</td><td>150-300</td><td>$1,500-3,000</td><td>$1,000-2,000</td><td>+$3,000</td><td><span class="bg bg-g">Rentable</span></td></tr>
+        <tr><td>Mes 10-12</td><td>300-500</td><td>$3,000-5,000</td><td>$2,000-4,000</td><td>+$9,000</td><td><span class="bg bg-b">Escalando</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== CALCULATOR ==================== -->
+  <div id="sec-calc" class="sec">
+    <div class="tabs">
+      <div class="tab act" onclick="calcTab('single',this)">Producto Individual</div>
+      <div class="tab" onclick="calcTab('batch',this)">Comparar Top 5</div>
+    </div>
+
+    <div id="tc-single" class="tc act">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Calcular Rentabilidad</h3>
+        <div class="pills" id="presets"></div>
+        <div class="g2" style="gap:14px">
+          <div class="fl"><label>Nombre del producto</label><input type="text" id="c-name" placeholder="Ej: Parches para acn&eacute;"></div>
+          <div class="fl"><label>Precio compra China (USD)</label><input type="number" id="c-price" step="0.01" placeholder="0.20"></div>
+          <div class="fl"><label>Peso con empaque (gramos)</label><input type="number" id="c-weight" step="1" placeholder="5"></div>
+          <div class="fl"><label>Precio venta MercadoLibre (CLP)</label><input type="number" id="c-sell" step="100" placeholder="6500"></div>
+          <div class="fl"><label>D&oacute;lar hoy (USD/CLP)</label><input type="number" id="c-fx" value="950"><div class="hn">Actualizar seg&uacute;n el d&oacute;lar del d&iacute;a</div></div>
+          <div class="fl"><label>Comisi&oacute;n ML (%)</label>
+            <select id="c-com"><option value="0.13">13% (mayor&iacute;a)</option><option value="0.145">14.5% (electr&oacute;nica)</option><option value="0.17">17% (celulares)</option><option value="0.10">10% (especiales)</option></select>
+          </div>
+          <div class="fl"><label>Tiene FORM-F?</label>
+            <select id="c-ff"><option value="1">S&iacute; (0% arancel)</option><option value="0">No (6% arancel)</option></select>
+          </div>
+          <div class="fl"><label>Env&iacute;o ML (CLP)</label><input type="number" id="c-ship" value="2500"><div class="hn">0 si usas Mercado Env&iacute;os Full</div></div>
+        </div>
+        <br>
+        <button class="btn btn-p btn-f" onclick="calcSingle()">Calcular Rentabilidad</button>
+      </div>
+      <div id="calc-res" style="display:none">
+        <div class="cd">
+          <h3><span class="dot" style="background:var(--g)"></span> Resultado: <span id="cr-name"></span></h3>
+          <div class="rg" id="cr-metrics"></div>
+          <div id="cr-verdict"></div>
+        </div>
+        <div class="cd bd">
+          <h3><span class="dot" style="background:var(--o)"></span> Desglose de Costos</h3>
+          <table id="cr-breakdown"></table>
+        </div>
+        <button class="btn btn-g btn-sm" onclick="saveToInventory()" style="margin-bottom:20px">+ Guardar en Mi Inventario</button>
+      </div>
+    </div>
+
+    <div id="tc-batch" class="tc">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Comparar Top 5 Productos</h3>
+        <div class="g2" style="gap:14px;margin-bottom:14px">
+          <div class="fl"><label>D&oacute;lar (USD/CLP)</label><input type="number" id="b-fx" value="950"></div>
+          <div class="fl"><label>FORM-F</label><select id="b-ff"><option value="1">S&iacute; (0%)</option><option value="0">No (6%)</option></select></div>
+        </div>
+        <button class="btn btn-p btn-f" onclick="calcBatch()">Calcular Todos</button>
+        <div style="overflow-x:auto;margin-top:14px"><table id="batch-table"><thead><tr><th>Producto</th><th>Costo</th><th>Venta ML</th><th>Costo Total</th><th>Utilidad</th><th>Margen</th><th>ROI</th><th>Veredicto</th></tr></thead><tbody id="batch-body"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PRODUCTS ==================== -->
+  <div id="sec-products" class="sec">
+    <div class="tip"><strong>Criterio de selecci&oacute;n:</strong><p>Producto &lt; 200g + precio venta &gt; $5 USD + margen &ge; 35% + alta rotaci&oacute;n + sin restricciones regulatorias</p></div>
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--g)"></span> Top 15 Productos Recomendados Chile 2026</h3>
+      <div style="overflow-x:auto"><table id="prod-table"></table></div>
+    </div>
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--h)"></span> Categor&iacute;as a EVITAR</h3>
+      <table>
+        <tr><th>Categor&iacute;a</th><th>Regulaci&oacute;n</th><th>Entidad</th><th>Riesgo</th></tr>
+        <tr><td>Cosm&eacute;ticos/Skincare</td><td>Registro sanitario</td><td>ISP</td><td><span class="bg bg-r">Alto</span></td></tr>
+        <tr><td>Alimentos/Suplementos</td><td>Autorizaci&oacute;n sanitaria</td><td>SEREMI Salud</td><td><span class="bg bg-r">Alto</span></td></tr>
+        <tr><td>Telecomunicaciones</td><td>Homologaci&oacute;n</td><td>SUBTEL</td><td><span class="bg bg-r">Alto</span></td></tr>
+        <tr><td>Juguetes ni&ntilde;os</td><td>Certificaci&oacute;n seguridad</td><td>SERNAC</td><td><span class="bg bg-o">Medio</span></td></tr>
+        <tr><td>Medicamentos</td><td>Registro ISP</td><td>ISP</td><td><span class="bg bg-r">Cr&iacute;tico</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== GUIDE ==================== -->
+  <div id="sec-guide" class="sec">
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--a)"></span> De Cero a Primera Venta</h3>
+      <ul class="tl" id="guide-timeline"></ul>
+    </div>
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--g)"></span> Tips T&iacute;tulos SEO MercadoLibre</h3>
+        <div class="tip-g tip"><strong>F&oacute;rmula ganadora:</strong><p>[Producto] + [Caracter&iacute;stica] + [Material] + [Uso/Beneficio]</p></div>
+        <p style="font-size:.82rem;color:var(--g);margin:6px 0">&#10004; "Parches Acn&eacute; Hidrocoloide Transparente Pack 36 Unidades"</p>
+        <p style="font-size:.82rem;color:var(--g);margin:6px 0">&#10004; "Lentes Blue Light Anti Luz Azul Computador Descanso Unisex"</p>
+        <p style="font-size:.82rem;color:var(--g);margin:6px 0">&#10004; "Jade Roller Masajeador Facial Piedra Natural Antiarrugas"</p>
+        <p style="font-size:.82rem;color:var(--h);margin:10px 0 0">&#10008; Evitar: "OFERTA!!!", emojis, TODO EN MAY&Uacute;SCULAS, "env&iacute;o gratis" en t&iacute;tulo</p>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--h)"></span> Errores que Destruyen Ventas</h3>
+        <div class="tip tip-r"><strong>1. Publicar mucho de golpe</strong><p>ML suspende cuentas nuevas con comportamiento de bot. M&aacute;x 5 publicaciones/d&iacute;a al inicio.</p></div>
+        <div class="tip tip-r"><strong>2. No calcular TODOS los costos</strong><p>IVA 19% + comisi&oacute;n 13-17% + env&iacute;o se comen el margen. Usa SIEMPRE la calculadora.</p></div>
+        <div class="tip tip-r"><strong>3. Fotos del proveedor chino</strong><p>Cuando recibas el producto, toma TUS fotos con fondo blanco. Las del proveedor no venden.</p></div>
+        <div class="tip tip-r"><strong>4. No responder preguntas</strong><p>ML mide tu tiempo de respuesta. Responder r&aacute;pido mejora posicionamiento.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ROADMAP ==================== -->
+  <div id="sec-roadmap" class="sec">
+    <div class="g2" id="roadmap-cards"></div>
+  </div>
+
+  <!-- ==================== SUPPLIERS ==================== -->
+  <div id="sec-suppliers" class="sec">
+    <div class="tip"><strong>Estrategia:</strong><p>AliExpress (test 1-10 u.) &#8594; Alibaba (escalar 50-500 u.) &#8594; 1688.com (m&aacute;ximo margen). SIEMPRE pedir FORM-F.</p></div>
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Plataformas de Compra</h3>
+        <div id="supplier-platforms"></div>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--g)"></span> Forwarders y Log&iacute;stica</h3>
+        <div id="supplier-logistics"></div>
+      </div>
+    </div>
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--o)"></span> Checklist Proveedor Confiable</h3>
+      <ul class="cl" id="supplier-checklist"></ul>
+    </div>
+  </div>
+
+  <!-- ==================== COSTS ==================== -->
+  <div id="sec-costs" class="sec">
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--a)"></span> Costos de Importaci&oacute;n</h3>
+      <table>
+        <tr><th>Concepto</th><th>Valor</th><th>Notas</th></tr>
+        <tr><td>IVA importaci&oacute;n</td><td><strong>19%</strong></td><td>Sobre (CIF + arancel). Sin excepci&oacute;n desde oct-2025</td></tr>
+        <tr><td>Arancel est&aacute;ndar</td><td>6%</td><td>Sobre valor CIF</td></tr>
+        <tr><td>TLC Chile-China (FORM-F)</td><td><strong style="color:var(--g)">0%</strong></td><td>Elimina el 6%. SIEMPRE pedir</td></tr>
+        <tr><td>Courier sin agente</td><td>Hasta $1,000 FOB</td><td>Sin agente de aduanas</td></tr>
+        <tr><td>Flete a&eacute;reo</td><td>$6-10 USD/kg</td><td>&lt;500g: ~$10/kg | &gt;500g: ~$6/kg</td></tr>
+        <tr><td>Aduana</td><td>1-3 d&iacute;as</td><td>Procedimiento rutinario</td></tr>
+      </table>
+    </div>
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--o)"></span> Comisiones MercadoLibre</h3>
+        <table>
+          <tr><th>Tipo</th><th>Comisi&oacute;n</th><th>Exposici&oacute;n</th></tr>
+          <tr><td>Cl&aacute;sica</td><td>10-13%</td><td>Normal</td></tr>
+          <tr><td>Premium</td><td>13-17%</td><td>M&aacute;xima + cuotas</td></tr>
+          <tr><td>Env&iacute;o gratis</td><td>+$2-4K CLP</td><td>Mejor ranking</td></tr>
+          <tr><td>Mercado Ads</td><td>CPC variable</td><td>Publicidad</td></tr>
+        </table>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Infraestructura IA (Mensual)</h3>
+        <table>
+          <tr><th>Servicio</th><th>Costo</th><th>Uso</th></tr>
+          <tr><td>VPS</td><td>$12 USD</td><td>Agentes IA</td></tr>
+          <tr><td>LLM</td><td>$0-20</td><td>Contenido</td></tr>
+          <tr><td>Scraping</td><td>$5</td><td>Datos mercado</td></tr>
+          <tr><td>Supabase</td><td>$0</td><td>Base datos</td></tr>
+          <tr><td>Redis</td><td>$0</td><td>Cache</td></tr>
+          <tr><td>Telegram Bot</td><td>$0</td><td>Alertas</td></tr>
+          <tr><td><strong>TOTAL</strong></td><td><strong>$20-38</strong></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SIMULATOR ==================== -->
+  <div id="sec-simulator" class="sec">
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--a)"></span> Simulador de Ingresos Mensuales</h3>
+      <div class="g2" style="gap:14px">
+        <div class="fl"><label>Utilidad promedio por venta (CLP)</label><input type="number" id="s-util" value="3500"><div class="hn">Calcula primero en la Calculadora</div></div>
+        <div class="fl"><label>Ventas por d&iacute;a (promedio)</label><input type="number" id="s-vpd" value="3"></div>
+        <div class="fl"><label>Costos fijos mensuales (CLP)</label><input type="number" id="s-fix" value="25000"><div class="hn">VPS + herramientas</div></div>
+        <div class="fl"><label>Inversi&oacute;n inicial (CLP)</label><input type="number" id="s-inv" value="1425000"><div class="hn">$1,500 USD x 950</div></div>
+      </div>
+      <br>
+      <button class="btn btn-p btn-f" onclick="runSim()">Simular 12 Meses</button>
+    </div>
+    <div id="sim-res" style="display:none">
+      <div class="rg" style="margin-bottom:20px" id="sim-stats"></div>
+      <div class="cd"><h3><span class="dot" style="background:var(--g)"></span> Proyecci&oacute;n Mes a Mes</h3>
+        <div style="overflow-x:auto"><table><thead><tr><th>Mes</th><th>Ventas</th><th>Ingresos</th><th>Costos</th><th>Neto</th><th>Acumulado</th><th>Estado</th></tr></thead><tbody id="sim-body"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== INVENTORY ==================== -->
+  <div id="sec-inventory" class="sec">
+    <div class="tip-g tip"><strong>Tu inventario personal:</strong><p>Los productos que guardes desde la calculadora aparecen aqu&iacute;. Los datos se guardan en tu navegador.</p></div>
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--g)"></span> Mis Productos</h3>
+      <div id="inv-empty" style="text-align:center;padding:40px;color:var(--m)">
+        <p style="font-size:2rem;margin-bottom:8px">&#128230;</p>
+        <p>A&uacute;n no has guardado productos.</p>
+        <p style="font-size:.82rem;margin-top:4px">Ve a la <a href="#" onclick="go('calc')" style="color:var(--a)">Calculadora</a>, calcula un producto y presiona "Guardar en Mi Inventario".</p>
+      </div>
+      <div style="overflow-x:auto"><table id="inv-table" style="display:none"><thead><tr><th>Producto</th><th>Costo China</th><th>Venta ML</th><th>Margen</th><th>ROI</th><th>Estado</th><th>Acci&oacute;n</th></tr></thead><tbody id="inv-body"></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- ==================== NOTES ==================== -->
+  <!-- ================= USERS (ADMIN ONLY) ================= -->
+  <div id="sec-users" class="sec">
+    <div class="tip"><strong>Panel de Administraci&oacute;n de Usuarios</strong><p>Crea, edita y elimina usuarios. Cada usuario recibe un rol que define su acceso al sistema.</p></div>
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Crear Nuevo Usuario</h3>
+        <div class="fl"><label>Email</label><input type="email" id="nu-email" placeholder="usuario@email.com"></div>
+        <div class="fl"><label>Nombre</label><input type="text" id="nu-name" placeholder="Nombre completo"></div>
+        <div class="fl"><label>Contrase&ntilde;a temporal</label><input type="text" id="nu-pass" placeholder="M&iacute;nimo 6 caracteres"></div>
+        <div class="fl"><label>Rol</label>
+          <select id="nu-role"><option value="vendedor">Vendedor</option><option value="soporte">Soporte</option><option value="cliente">Cliente</option><option value="admin">Administrador</option></select>
+        </div>
+        <button class="btn btn-p btn-f" onclick="createUser()">+ Crear Usuario</button>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--g)"></span> Roles del Sistema</h3>
+        <div class="tip-g tip"><strong>Admin</strong><p>Acceso total. Puede crear/eliminar usuarios y ver todas las secciones.</p></div>
+        <div class="tip tip"><strong>Vendedor</strong><p>Acceso a Panel, Calculadora, Productos, Inventario, Simulador y Notas.</p></div>
+        <div class="tip" style="background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.15)"><strong style="color:var(--o)">Soporte</strong><p>Acceso a Panel, Productos, Inventario y Notas.</p></div>
+        <div class="tip" style="background:rgba(59,130,246,.06);border-color:rgba(59,130,246,.15)"><strong>Cliente</strong><p>Solo vista del Panel Principal y Productos.</p></div>
+      </div>
+    </div>
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--o)"></span> Usuarios Registrados (<span id="user-count">0</span>)</h3>
+      <div id="users-list"></div>
+    </div>
+  </div>
+
+  <!-- ================= PROFILE ================= -->
+  <div id="sec-profile" class="sec">
+    <div class="g2">
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--a)"></span> Mi Perfil</h3>
+        <div class="fl"><label>Email / Usuario</label><input type="text" id="pf-email" disabled style="opacity:.6"></div>
+        <div class="fl"><label>Nombre</label><input type="text" id="pf-name" placeholder="Tu nombre"></div>
+        <div class="fl"><label>Rol</label><input type="text" id="pf-role" disabled style="opacity:.6"></div>
+        <button class="btn btn-p btn-f" onclick="saveProfile()">Guardar Cambios</button>
+      </div>
+      <div class="cd">
+        <h3><span class="dot" style="background:var(--h)"></span> Cambiar Contrase&ntilde;a</h3>
+        <div class="fl"><label>Contrase&ntilde;a actual</label><input type="password" id="pf-oldpass"></div>
+        <div class="fl"><label>Nueva contrase&ntilde;a</label><input type="password" id="pf-newpass" placeholder="M&iacute;nimo 6 caracteres"></div>
+        <div class="fl"><label>Confirmar nueva contrase&ntilde;a</label><input type="password" id="pf-newpass2"></div>
+        <button class="btn btn-p btn-f" onclick="changePassword()">Cambiar Contrase&ntilde;a</button>
+        <div id="pf-msg" style="margin-top:10px;font-size:.82rem"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sec-notes" class="sec">
+    <div class="cd">
+      <h3><span class="dot" style="background:var(--o)"></span> Mis Notas y Ideas</h3>
+      <textarea id="notes-area" style="width:100%;min-height:400px;background:var(--p);border:1px solid var(--b);border-radius:8px;padding:16px;color:var(--t);font-size:.9rem;font-family:inherit;resize:vertical" placeholder="Escribe aqu&iacute; tus ideas, notas de proveedores, productos que quieres investigar..."></textarea>
+      <br><br>
+      <button class="btn btn-g btn-sm" onclick="saveNotes()">Guardar Notas</button>
+      <span id="notes-saved" style="margin-left:10px;font-size:.8rem;color:var(--g);display:none">&#10004; Guardado</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== AUTH SYSTEM =====
+async function sha256(msg){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+
+const ROLE_ACCESS={
+  admin:['home','calc','products','guide','roadmap','suppliers','costs','simulator','inventory','notes','users','profile'],
+  vendedor:['home','calc','products','guide','roadmap','suppliers','costs','simulator','inventory','notes','profile'],
+  soporte:['home','products','inventory','notes','profile'],
+  cliente:['home','products','profile']
+};
+
+function getUsers(){return JSON.parse(localStorage.getItem('ds_users')||'[]')}
+function setUsers(u){localStorage.setItem('ds_users',JSON.stringify(u))}
+function getSession(){
+  const s=JSON.parse(sessionStorage.getItem('ds_session')||'null');
+  if(!s)return null;
+  if(Date.now()-s.ts>28800000){sessionStorage.removeItem('ds_session');return null} // 8h expiry
+  return s;
+}
+function setSession(user){sessionStorage.setItem('ds_session',JSON.stringify({...user,ts:Date.now()}))}
+
+async function initAuth(){
+  let users=getUsers();
+  if(!users.length){
+    const h=await sha256('admin123');
+    users=[{email:'dari',name:'Dari Besoain',role:'admin',pass:h,created:new Date().toISOString()}];
+    setUsers(users);
+  }
+  const session=getSession();
+  if(session){
+    showDashboard(session);
+  } else {
+    document.getElementById('auth-overlay').classList.remove('hidden');
+  }
+}
+
+async function doLogin(){
+  const u=document.getElementById('auth-user').value.trim().toLowerCase();
+  const p=document.getElementById('auth-pass').value;
+  const err=document.getElementById('auth-err');
+  if(!u||!p){err.textContent='Ingresa usuario y contrase\u00f1a';return}
+  const users=getUsers();
+  const h=await sha256(p);
+  const found=users.find(x=>(x.email.toLowerCase()===u)&&x.pass===h);
+  if(!found){err.textContent='Credenciales incorrectas';return}
+  err.textContent='';
+  setSession(found);
+  showDashboard(found);
+}
+
+function showDashboard(user){
+  document.getElementById('auth-overlay').classList.add('hidden');
+  const access=ROLE_ACCESS[user.role]||ROLE_ACCESS.cliente;
+  // Show/hide nav items based on role
+  document.querySelectorAll('#nav a').forEach(a=>{
+    const onclick=a.getAttribute('onclick')||'';
+    const match=onclick.match(/go\('(\w+)'\)/);
+    if(match){
+      const sec=match[1];
+      a.style.display=access.includes(sec)?'':'none';
+    }
+  });
+  // Show users nav for admin
+  if(user.role==='admin')document.getElementById('nav-users').style.display='';
+  // User info in sidebar
+  const rc='role-'+user.role;
+  document.getElementById('sb-user-info').innerHTML=`<span class="user-badge">&#128100; ${user.name||user.email}</span><br><span class="role-badge ${rc}" style="margin-top:4px">${user.role.toUpperCase()}</span>`;
+  // Load profile
+  document.getElementById('pf-email').value=user.email;
+  document.getElementById('pf-name').value=user.name||'';
+  document.getElementById('pf-role').value=user.role.toUpperCase();
+  // Render users list if admin
+  if(user.role==='admin')renderUsers();
+}
+
+function doLogout(){
+  sessionStorage.removeItem('ds_session');
+  location.reload();
+}
+
+async function createUser(){
+  const session=getSession();
+  if(!session||session.role!=='admin'){alert('Solo admin puede crear usuarios');return}
+  const email=document.getElementById('nu-email').value.trim();
+  const name=document.getElementById('nu-name').value.trim();
+  const pass=document.getElementById('nu-pass').value;
+  const role=document.getElementById('nu-role').value;
+  if(!email||!pass){alert('Email y contrase\u00f1a son requeridos');return}
+  if(pass.length<6){alert('Contrase\u00f1a m\u00ednimo 6 caracteres');return}
+  let users=getUsers();
+  if(users.find(u=>u.email.toLowerCase()===email.toLowerCase())){alert('Este email ya existe');return}
+  const h=await sha256(pass);
+  users.push({email,name,role,pass:h,created:new Date().toISOString()});
+  setUsers(users);
+  renderUsers();
+  document.getElementById('nu-email').value='';
+  document.getElementById('nu-name').value='';
+  document.getElementById('nu-pass').value='';
+  alert('\u2705 Usuario creado: '+email+' ('+role+')');
+}
+
+function renderUsers(){
+  const users=getUsers();
+  document.getElementById('user-count').textContent=users.length;
+  const list=document.getElementById('users-list');
+  list.innerHTML=users.map((u,i)=>{
+    const rc='role-'+u.role;
+    return `<div class="um-card"><div class="um-info"><div class="um-email">${u.name||u.email} <span class="role-badge ${rc}">${u.role}</span></div><div class="um-role">${u.email} &bull; Creado: ${new Date(u.created).toLocaleDateString('es-CL')}</div></div><div class="um-actions">${u.role!=='admin'||users.filter(x=>x.role==='admin').length>1?`<button class="del-btn" onclick="deleteUser(${i})">Eliminar</button>`:''}<button onclick="resetUserPass(${i})">Reset Pass</button></div></div>`;
+  }).join('');
+}
+
+async function deleteUser(i){
+  if(!confirm('\u00bfEliminar este usuario?'))return;
+  let users=getUsers();
+  users.splice(i,1);
+  setUsers(users);
+  renderUsers();
+}
+
+async function resetUserPass(i){
+  const np=prompt('Nueva contrase\u00f1a para este usuario (m\u00ednimo 6 chars):');
+  if(!np||np.length<6){alert('Contrase\u00f1a inv\u00e1lida o muy corta');return}
+  let users=getUsers();
+  users[i].pass=await sha256(np);
+  setUsers(users);
+  alert('\u2705 Contrase\u00f1a actualizada');
+}
+
+function saveProfile(){
+  const session=getSession();
+  if(!session)return;
+  const name=document.getElementById('pf-name').value.trim();
+  let users=getUsers();
+  const idx=users.findIndex(u=>u.email===session.email);
+  if(idx>=0){users[idx].name=name;setUsers(users);session.name=name;setSession(session);showDashboard(session);alert('\u2705 Perfil actualizado')}
+}
+
+async function changePassword(){
+  const session=getSession();
+  if(!session)return;
+  const old=document.getElementById('pf-oldpass').value;
+  const np=document.getElementById('pf-newpass').value;
+  const np2=document.getElementById('pf-newpass2').value;
+  const msg=document.getElementById('pf-msg');
+  if(!old||!np){msg.innerHTML='<span style="color:var(--h)">Completa todos los campos</span>';return}
+  if(np.length<6){msg.innerHTML='<span style="color:var(--h)">M\u00ednimo 6 caracteres</span>';return}
+  if(np!==np2){msg.innerHTML='<span style="color:var(--h)">Las contrase\u00f1as no coinciden</span>';return}
+  const ho=await sha256(old);
+  let users=getUsers();
+  const idx=users.findIndex(u=>u.email===session.email&&u.pass===ho);
+  if(idx<0){msg.innerHTML='<span style="color:var(--h)">Contrase\u00f1a actual incorrecta</span>';return}
+  users[idx].pass=await sha256(np);
+  setUsers(users);
+  msg.innerHTML='<span style="color:var(--g)">\u2705 Contrase\u00f1a cambiada exitosamente</span>';
+  document.getElementById('pf-oldpass').value='';
+  document.getElementById('pf-newpass').value='';
+  document.getElementById('pf-newpass2').value='';
+}
+
+// Add Enter key support for login
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!document.getElementById('auth-overlay').classList.contains('hidden'))doLogin()});
+
+// ===== DATA =====
+const PRESETS=[
+  {n:'Parches Acn\u00e9',p:0.20,w:5,s:6500},
+  {n:'Fundas Celular',p:1.50,w:40,s:5000},
+  {n:'Lentes Blue Light',p:2.00,w:50,s:12000},
+  {n:'Jade Roller',p:1.50,w:70,s:12000},
+  {n:'Aud\u00edfonos TWS',p:4.00,w:60,s:18000},
+  {n:'Tumbler Viral',p:3.00,w:200,s:15000},
+  {n:'Bandas Fitness',p:1.00,w:80,s:6000},
+  {n:'Correas Apple Watch',p:1.00,w:25,s:6000}
+];
+const PRODUCTS=[
+  {n:'Parches para acn\u00e9 (coreanos)',c:'$0.10-0.30',v:'$5,500-8,000',m:'400-500%',w:'<5g',cat:'Belleza',b:'bg-g',bt:'Excelente'},
+  {n:'Jade roller / Gua sha',c:'$1.00-2.00',v:'$8,000-15,000',m:'400-600%',w:'<80g',cat:'Belleza',b:'bg-g',bt:'Excelente'},
+  {n:'Lentes blue light',c:'$1.50-3.00',v:'$8,000-15,000',m:'200-350%',w:'<60g',cat:'Accesorios',b:'bg-g',bt:'Excelente'},
+  {n:'Fundas celular premium',c:'$0.80-2.00',v:'$4,000-6,000',m:'200-300%',w:'<50g',cat:'Tecnolog\u00eda',b:'bg-g',bt:'Muy bueno'},
+  {n:'Tumbler / botellas virales',c:'$2.00-4.00',v:'$12,000-20,000',m:'200-350%',w:'~200g',cat:'Hogar',b:'bg-b',bt:'Trending'},
+  {n:'Aud\u00edfonos TWS b\u00e1sicos',c:'$3.00-5.00',v:'$12,000-22,000',m:'150-250%',w:'<80g',cat:'Electr\u00f3nica',b:'bg-g',bt:'Bueno'},
+  {n:'Organizadores escritorio',c:'$1.50-3.00',v:'$6,000-12,000',m:'150-250%',w:'<150g',cat:'Oficina',b:'bg-g',bt:'Bueno'},
+  {n:'Bandas el\u00e1sticas fitness',c:'$0.50-1.50',v:'$4,000-8,000',m:'200-400%',w:'<100g',cat:'Deporte',b:'bg-g',bt:'Muy bueno'},
+  {n:'Luces LED decorativas',c:'$1.00-3.00',v:'$5,000-12,000',m:'150-300%',w:'<100g',cat:'Hogar',b:'bg-g',bt:'Bueno'},
+  {n:'Accesorios mascotas',c:'$1.00-3.00',v:'$5,000-12,000',m:'150-300%',w:'<150g',cat:'Mascotas',b:'bg-b',bt:'Trending'},
+  {n:'Correas Apple Watch gen\u00e9ricas',c:'$0.50-1.50',v:'$4,000-8,000',m:'200-400%',w:'<30g',cat:'Tecnolog\u00eda',b:'bg-g',bt:'Muy bueno'},
+  {n:'Mini proyector port\u00e1til',c:'$15-25',v:'$45,000-70,000',m:'100-150%',w:'~300g',cat:'Electr\u00f3nica',b:'bg-o',bt:'Medio'},
+  {n:'Soportes celular auto',c:'$1.00-2.50',v:'$5,000-10,000',m:'150-300%',w:'<100g',cat:'Veh\u00edculos',b:'bg-b',bt:'Trending Q1'},
+  {n:'Tazas t\u00e9rmicas',c:'$2.00-4.00',v:'$8,000-15,000',m:'150-250%',w:'~250g',cat:'Hogar',b:'bg-g',bt:'Bueno'},
+  {n:'Figuras coleccionables (Labubu)',c:'$2.00-5.00',v:'$10,000-25,000',m:'150-300%',w:'<100g',cat:'Juguetes',b:'bg-p',bt:'Viral 2026'}
+];
+const GUIDE_STEPS=[
+  {t:'Validar tu cuenta MercadoLibre',d:'Verifica datos completos: nombre real, direcci\u00f3n, tel\u00e9fono, cuenta bancaria vinculada. Obligatorio para vender.',s:'cur'},
+  {t:'Elegir 5 productos de prueba',d:'Usa la pesta\u00f1a "Productos Trending". Elige 5 con margen \u2265 35%. Prioriza los "Excelente" y "Trending".',s:'pnd'},
+  {t:'Comprar muestras en AliExpress',d:'5-10 unidades de cada uno. ~$50-100 USD. Vendedores con \u2265 4.5\u2605 y \u2265 1,000 pedidos.',s:'pnd'},
+  {t:'Crear publicaciones en MercadoLibre',d:'T\u00edtulo SEO (60 chars), 6+ fotos fondo blanco, descripci\u00f3n detallada, tipo "Cl\u00e1sica" para empezar.',s:'pnd'},
+  {t:'Optimizar publicaciones',d:'Ficha t\u00e9cnica completa, env\u00edo gratis si es posible, responder preguntas <1 hora.',s:'pnd'},
+  {t:'Medir y ajustar (2 semanas)',d:'Muchas visitas + pocas ventas = ajustar precio. Pocas visitas = mejorar t\u00edtulo/fotos.',s:'pnd'},
+  {t:'Escalar lo que funciona',d:'Ganadores: pedir 50-100u en Alibaba. Pedir FORM-F. Activar Mercado Env\u00edos Full y Mercado Ads.',s:'pnd'}
+];
+const ROADMAP=[
+  {t:'Fase 1 \u2014 MVP',w:'Sem 1-4',b:'$200 USD',color:'var(--h)',steps:[
+    {t:'Semana 1: Setup',d:'Configurar VPS, Python, PostgreSQL, Redis'},
+    {t:'Semana 2: API ML',d:'OAuth2 funcionando, token refresh autom\u00e1tico'},
+    {t:'Semana 3: Publicar',d:'Script publicaci\u00f3n v\u00eda API, 10-20 productos'},
+    {t:'Semana 4: Validar',d:'Medir demanda, ajustar precios, primeras ventas'}
+  ]},
+  {t:'Fase 2 \u2014 Automatizaci\u00f3n',w:'Sem 5-8',b:'$150 USD',color:'var(--o)',steps:[
+    {t:'Sem 5-6: Scrapers',d:'Scraper tendencias ML + scraper Alibaba'},
+    {t:'Sem 7: Pipeline',d:'Tendencia \u2192 Cotizar \u2192 Calcular \u2192 Cola'},
+    {t:'Sem 8: Agentes',d:'Detector + Sourcing en CrewAI'}
+  ]},
+  {t:'Fase 3 \u2014 Capa IA',w:'Sem 9-12',b:'$100 USD',color:'var(--a)',steps:[
+    {t:'Sem 9-10: Contenido IA',d:'LLM genera t\u00edtulos y descripciones SEO'},
+    {t:'Sem 11: Pricing',d:'Monitoreo 6h + reglas piso/techo'},
+    {t:'Sem 12: Dashboard',d:'Streamlit + Bot Telegram alertas'}
+  ]},
+  {t:'Fase 4 \u2014 Autonom\u00eda',w:'Sem 13-20',b:'$100 USD',color:'var(--g)',steps:[
+    {t:'Sem 13-15: Webhooks',d:'\u00d3rdenes autom\u00e1ticas + atenci\u00f3n IA'},
+    {t:'Sem 16-18: Pipeline',d:'Detectar \u2192 cotizar \u2192 publicar \u2192 vender'},
+    {t:'Sem 19-20: Optimizar',d:'Evaluar SKUs, eliminar perdedores, escalar'}
+  ]}
+];
+const SUPPLIERS_P=[
+  {n:'AliExpress',d:'Para testear. Sin MOQ, env\u00edo directo a Chile. Precio m\u00e1s alto pero sin riesgo de stock. Ideal: 5-10 unidades.'},
+  {n:'Alibaba',d:'Para escalar. MOQ 50-500u. Trade Assurance. Precio 30-50% menor que AliExpress. Negociar FORM-F.'},
+  {n:'1688.com',d:'M\u00e1ximo margen. -20-50% vs Alibaba. Requiere agente o forwarder. Para +500 unidades.'},
+  {n:'DHGate',d:'Intermedio. Lotes 10-50u. Buenos para electr\u00f3nica y accesorios. Protecci\u00f3n al comprador.'}
+];
+const SUPPLIERS_L=[
+  {n:'WS Cargo',d:'Consolidaci\u00f3n multi-proveedor en bodega China + env\u00edo a Chile. Ideal multi-proveedor.'},
+  {n:'Chilat',d:'Agente + forwarder chileno. Compran en 1688 por ti. Servicio en espa\u00f1ol.'},
+  {n:'AliExpress Standard',d:'Env\u00edo directo, 15-30 d\u00edas, tracking completo. Sin costo de forwarder.'},
+  {n:'Mercado Env\u00edos Full',d:'Stock en bodega ML, despacho 24h. Mejora posicionamiento en b\u00fasquedas.'}
+];
+const SUP_CHECK=['Rating \u2265 4.5 estrellas','M\u00e1s de 2 a\u00f1os en la plataforma','Trade Assurance activo (Alibaba)','Responde en menos de 24 horas','Puede emitir FORM-F','Tiene fotos reales (no renders)','Ofrece muestras','Acepta PayPal o Trade Assurance'];
+const HOME_CHECK=['Validar cuenta vendedor MercadoLibre','Elegir 5 productos de prueba','Crear cuenta AliExpress','Comprar 10 unidades de prueba','Publicar 5 productos en ML','Medir demanda (2 semanas)','Analizar resultados y escalar'];
+const PHASES=['Fase 1: MVP','Fase 2: Automatizaci\u00f3n','Fase 3: Capa IA','Fase 4: Autonom\u00eda'];
+
+// ===== STATE =====
+let inventory = JSON.parse(localStorage.getItem('ds_inv')||'[]');
+let lastCalc = null;
+
+// ===== NAVIGATION =====
+function go(id){
+  // Check role access
+  const session=getSession();
+  if(session){
+    const access=ROLE_ACCESS[session.role]||ROLE_ACCESS.cliente;
+    if(!access.includes(id)){alert('No tienes acceso a esta secci\u00f3n');return}
+  }
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('act'));
+  document.getElementById('sec-'+id).classList.add('act');
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.remove('act'));
+  event.target.closest('a').classList.add('act');
+  const titles={home:'Panel Principal',calc:'Calculadora de Rentabilidad',products:'Productos Trending',guide:'Gu\u00eda Paso a Paso',roadmap:'Hoja de Ruta 20 Semanas',suppliers:'Proveedores China',costs:'Estructura de Costos',simulator:'Simulador de Ingresos',inventory:'Mi Inventario',notes:'Notas e Ideas',users:'Gesti\u00f3n de Usuarios',profile:'Mi Perfil'};
+  document.getElementById('page-title').textContent=titles[id]||'';
+  document.querySelector('.sb').classList.remove('open');
+}
+function calcTab(id,el){
+  document.querySelectorAll('.tc').forEach(t=>t.classList.remove('act'));
+  document.getElementById('tc-'+id).classList.add('act');
+  el.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+}
+
+// ===== UTILS =====
+const fmt=n=>'$'+Math.round(n).toLocaleString('es-CL');
+function calcR(price,wg,sell,fx,com,ff,ship){
+  const wkg=wg/1000,pc=price*fx,fl=wkg*(wkg<.5?10:6)*fx;
+  const ar=ff?0:(pc+fl)*.06,iv=(pc+fl+ar)*.19;
+  const ci=pc+fl+ar+iv,cm=sell*com,ct=ci+cm+ship;
+  const ut=sell-ct,mg=(ut/sell)*100,roi=(ut/ci)*100;
+  return{pc,fl,ar,iv,ci,cm,ship,ct,ut,mg,roi};
+}
+function toggleCheck(li){const cb=li.querySelector('input');cb.checked=!cb.checked;li.classList.toggle('chk',cb.checked)}
+
+// ===== CALCULATOR =====
+function calcSingle(){
+  const nm=document.getElementById('c-name').value||'Producto';
+  const pr=+document.getElementById('c-price').value||0;
+  const wt=+document.getElementById('c-weight').value||0;
+  const sl=+document.getElentById('c-sell').value||0;
+  const fx=+document.getElementById('c-fx').value||950;
+  const cm=+document.getElementById('c-com').value;
+  const ff=+document.getElementById('c-ff').value;
+  const sh=+document.getElementById('c-ship').value||0;
+  if(!pr||!sl){alert('Ingresa precio de compra y venta');return}
+  const r=calcR(pr,wt,sl,fx,cm,ff,sh);
+  lastCalc={name:nm,price:pr,weight:wt,sell:sl,fx,com:cm,ff,ship:sh,...r};
+
+  document.getElementById('calc-res').style.display='block';
+  document.getElementById('cr-name').textContent=nm;
+
+  const meta=r.ut>0?Math.ceil(1000000/r.ut):'---';
+  const mc=r.mg>=35?'rg2':r.mg>=20?'ro2':'rr2';
+  document.getElementById('cr-metrics').innerHTML=`
+    <div class="rc rb2"><div class="rl">Costo Total</div><div class="rv">${fmt(r.ct)}</div></div>
+    <div class="rc rb2"><div class="rl">Precio Venta</div><div class="rv">${fmt(sl)}</div></div>
+    <div class="rc ${mc}"><div class="rl">Utilidad/Unidad</div><div class="rv">${fmt(r.ut)}</div></div>
+    <div class="rc ${mc}"><div class="rl">Margen Neto</div><div class="rv">${r.mg.toFixed(1)}%</div></div>
+    <div class="rc ${mc}"><div class="rl">ROI</div><div class="rv">${r.roi.toFixed(0)}%</div></div>
+    <div class="rc rb2"><div class="rl">Ventas para $1M/mes</div><div class="rv">${meta}</div></div>`;
+
+  const vd=document.getElementById('cr-verdict');
+  if(r.mg>=35)vd.className='vd vd-g',vd.textContent=`VIABLE \u2014 Margen excelente (${r.mg.toFixed(1)}%). Producto recomendado.`;
+  else if(r.mg>=20)vd.className='vd vd-o',vd.textContent=`AJUSTADO \u2014 Margen bajo (${r.mg.toFixed(1)}%). Viable solo con volumen.`;
+  else vd.className='vd vd-r',vd.textContent=`NO VIABLE \u2014 Margen insuficiente (${r.mg.toFixed(1)}%). Buscar otro producto.`;
+
+  document.getElementById('cr-breakdown').innerHTML=`
+    <tr><th>Concepto</th><th>Monto (CLP)</th></tr>
+    <tr><td>Producto China \u2192 CLP</td><td>${fmt(r.pc)}</td></tr>
+    <tr><td>Flete a\u00e9reo</td><td>${fmt(r.fl)}</td></tr>
+    <tr><td>Arancel</td><td>${fmt(r.ar)}</td></tr>
+    <tr><td>IVA importaci\u00f3n (19%)</td><td>${fmt(r.iv)}</td></tr>
+    <tr class="tot"><td>Total importaci\u00f3n</td><td>${fmt(r.ci)}</td></tr>
+    <tr><td>Comisi\u00f3n MercadoLibre</td><td>${fmt(r.cm)}</td></tr>
+    <tr><td>Env\u00edo ML</td><td>${fmt(r.ship)}</td></tr>
+    <tr class="tot"><td>Costo total/unidad</td><td>${fmt(r.ct)}</td></tr>
+    <tr class="profit"><td><strong>Utilidad neta</strong></td><td><strong>${fmt(r.ut)}</strong></td></tr>`;
+}
+
+function calcBatch(){
+  const fx=+document.getElementById('b-fx').value||950;
+  const ff=+document.getElementById('b-ff').value;
+  const batch=[
+    {n:'Parches acn\u00e9',p:.20,w:5,s:6500,c:.13},
+    {n:'Fundas celular',p:1.50,w:40,s:5000,c:.13},
+    {n:'Lentes blue light',p:2.00,w:50,s:12000,c:.13},
+    {n:'Jade roller',p:1.50,w:70,s:12000,c:.13},
+    {n:'Aud\u00edfonos TWS',p:4.00,w:60,s:18000,c:.145}
+  ];
+  const bd=document.getElementById('batch-body');bd.innerHTML='';
+  batch.forEach(b=>{
+   const r=calcR(b.p,b.w,b.s,fx,b.c,ff,2500);
+    const cls=r.mg>=35?'background:rgba(34,197,94,.06)':r.mg>=20?'background:rgba(245,158,11,.06)':'background:rgba(239,68,68,.06)';
+    const vt=r.mg>=35?'<span class="bg bg-g">VIABLE</span>':r.mg>=20?'<span class="bg bg-o">AJUSTADO</span>':'<span class="bg bg-r">NO</span>';
+    bd.innerHTML+=`<tr style="${cls}"><td><strong>${b.n}</strong></td><td>$${b.p}</td><td>${fmt(b.s)}</td><td>${fmt(r.ct)}</td><td>${fmt(r.ut)}</td><td>${r.mg.toFixed(1)}%</td><td>${r.roi.toFixed(0)}%</td><td>${vt}</td></tr>`;
+  });
+}
+
+// ===== SIMULATOR =====
+function runSim(){
+  const ut=+document.getElementById('s-util').value||0;
+  const vpd=+document.getElementById('s-vpd').value||0;
+  const fix=+document.getElementById('s-fix').value||0;
+  const inv=+document.getElementById('s-inv').value||0;
+  const vm=vpd*30,im=vm*ut,nm=im-fix;
+  document.getElementById('sim-res').style.display='block';
+  const pb=nm>0?Math.ceil(inv/nm):'---';
+  document.getElementById('sim-stats').innerHTML=`
+    <div class="rc rg2"><div class="rl">Ingreso Mensual</div><div class="rv">${fmt(im)}</div></div>
+    <div class="rc rg2"><div class="rl">Utilidad Neta/Mes</div><div class="rv">${fmt(nm)}</div></div>
+    <div class="rc ro2"><div class="rl">Meses Payback</div><div class="rv">${pb}</div></div>
+    <div class="rc rb2"><div class="rl">Utilidad Anual</div><div class="rv">${fmt(nm*12)}</div></div>`;
+  const bd=document.getElementById('sim-body');bd.innerHTML='';
+  let ac=-inv;
+  const factors=[.1,.3,.5,.7,.8,.85,.9,.95,1,1,1.05,1.1];
+  for(let m=1;m<=12;m++){
+    const f=factors[m-1]||1,v=Math.round(vm*f),ig=v*ut,nt=ig-fix;ac+=nt;
+    const st=ac>=0?'<span class="bg bg-g">Recuperado</span>':'<span class="bg bg-o">Invirtiendo</span>';
+    const cls=ac>=0?'background:rgba(34,197,94,.04)':'';
+    bd.innerHTML+=`<tr style="${cls}"><td>Mes ${m}</td><td>${v}</td><td>${fmt(ig)}</td><td>${fmt(fix)}</td><td>${fmt(nt)}</td><td>${fmt(ac)}</td><td>${st}</td></tr>`;
+  }
+}
+
+// ===== INVENTORY =====
+function saveToInventory(){
+  if(!lastCalc)return;
+  inventory.push({...lastCalc,date:new Date().toLocaleDateString('es-CL'),status:'Pendiente'});
+  localStorage.setItem('ds_inv',JSON.stringify(inventory));
+  renderInventory();
+  alert('\u2705 Producto guardado en tu inventario');
+}
+function removeInv(i){inventory.splice(i,1);localStorage.setItem('ds_inv',JSON.stringify(inventory));renderInventory()}
+function renderInventory(){
+  const tbl=document.getElementById('inv-table'),bd=document.getElementById('inv-body'),emp=document.getElementById('inv-empty');
+  if(!inventory.length){tbl.style.display='none';emp.style.display='block';return}
+  tbl.style.display='table';emp.style.display='none';bd.innerHTML='';
+  inventory.forEach((p,i)=>{
+    const mc=p.mg>=35?'bg-g':p.mg>=20?'bg-o':'bg-r';
+    bd.innerHTML+=`<tr><td><strong>${p.name}</strong><br><span style="font-size:.7rem;color:var(--m)">${p.date}</span></td><td>$${p.price} USD</td><td>${fmt(p.sell)}</td><td><span class="bg ${mc}">${p.mg.toFixed(1)}%</span></td><td>${p.roi.toFixed(0)}%</td><td><select onchange="updInvSt(${i},this.value)" style="background:var(--p);color:var(--t);border:1px solid var(--b);border-radius:4px;padding:4px"><option ${p.status==='Pendiente'?'selected':''}>Pendiente</option><option ${p.status==='Comprando'?'selected':''}>Comprando</option><option ${p.status==='En camino'?'selected':''}>En camino</option><option ${p.status==='En stock'?'selected':''}>En stock</option><option ${p.status==='Publicado'?'selected':''}>Publicado</option><option ${p.status==='Vendiendo'?'selected':''}>Vendiendo</option></select></td><td><button class="btn btn-sm" style="background:var(--h);color:#fff;padding:4px 10px" onclick="removeInv(${i})">X</button></td></tr>`;
+  });
+}
+function updInvSt(i,v){inventory[i].status=v;localStorage.setItem('ds_inv',JSON.stringify(inventory))}
+
+// ===== NOTES =====
+function saveNotes(){
+  localStorage.setItem('ds_notes',document.getElementById('notes-area').value);
+  const s=document.getElementById('notes-saved');s.style.display='inline';setTimeout(()=>s.style.display='none',2000);
+}
+
+// ===== RENDER STATIC =====
+function init(){
+  // Date
+  document.getElementById('date-now').textContent=new Date().toLocaleDateString('es-CL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Presets
+  const pp=document.getElementById('presets');
+  PRESETS.forEach((p,i)=>pp.innerHTML+=`<div class="pill" onclick="loadP(${i})">${p.n}</div>`);
+
+  // Products table
+  let pt='<tr><th>#</th><th>Producto</th><th>Costo China</th><th>Venta ML</th><th>Margen</th><th>Peso</th><th>Cat.</th><th>Viabilidad</th></tr>';
+  PRODUCTS.forEach((p,i)=>pt+=`<tr><td>${i+1}</td><td><strong>${p.n}</strong></td><td>${p.c}</td><td>${p.v}</td><td>${p.m}</td><td>${p.w}</td><td>${p.cat}</td><td><span class="bg ${p.b}">${p.bt}</span></td></tr>`);
+  document.getElementById('prod-table').innerHTML=pt;
+
+  // Guide
+  const gl=document.getElementById('guide-timeline');
+  GUIDE_STEPS.forEach(s=>gl.innerHTML+=`<li class="${s.s}"><div class="tt">${s.t}</div><div class="td">${s.d}</div></li>`);
+
+  // Roadmap
+  const rc=document.getElementById('roadmap-cards');
+  ROADMAP.forEach(r=>{
+    let steps='';r.steps.forEach(s=>steps+=`<li class="pnd"><div class="tt">${s.t}</div><div class="td">${s.d}</div></li>`);
+    rc.innerHTML+=`<div class="cd"><h3><span class="dot" style="background:${r.color}"></span> ${r.t} <span style="font-size:.75rem;color:var(--m);margin-left:auto">${r.w} | ${r.b}</span></h3><ul class="tl">${steps}</ul></div>`;
+  });
+
+  // Suppliers
+  const sp=document.getElementById('supplier-platforms'),sl2=document.getElementById('supplier-logistics');
+  SUPPLIERS_P.forEach(s=>sp.innerHTML+=`<div class="pv"><h4>${s.n}</h4><p>${s.d}</p></div>`);
+  SUPPLIERS_L.forEach(s=>sl2.innerHTML+=`<div class="pv"><h4>${s.n}</h4><p>${s.d}</p></div>`);
+  const sc=document.getElementById('supplier-checklist');
+  SUP_CHECK.forEach(s=>sc.innerHTML+=`<li onclick="toggleCheck(this)"><input type="checkbox"> ${s}</li>`);
+
+  // Home checklist
+  const hc=document.getElementById('home-checklist');
+  HOME_CHECK.forEach(s=>hc.innerHTML+=`<li onclick="toggleCheck(this)"><input type="checkbox"> ${s}</li>`);
+
+  // Home progress
+  const hp=document.getElementById('home-progress');
+  PHASES.forEach(p=>hp.innerHTML+=`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px"><span>${p}</span><span style="color:var(--m)">0%</span></div><div class="pb"><div class="pf" style="width:0%;background:var(--a)"></div></div></div>`);
+
+  // Inventory
+  renderInventory();
+
+  // Notes
+  document.getElementById('notes-area').value=localStorage.getItem('ds_notes')||'';
+
+  // Auto batch
+  calcBatch();
+}
+
+function loadP(i){
+  const p=PRESETS[i];
+  document.getElementById('c-name').value=p.n;
+  document.getElementById('c-price').value=p.p;
+  document.getElementById('c-weight').value=p.w;
+  document.getElementById('c-sell').value=p.s;
+}
+
+init();
+initAuth();
+</script>
+</body>
+  </html>
